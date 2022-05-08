@@ -27,35 +27,35 @@ def process_file(cfg, regexp, input_path, file_name, output_path):
 
     dest_subfolder = details.group(cfg.rcap_folder)
 
+    full_file_path_out = os.path.join(output_path, dest_subfolder)
+
     if (cfg.keep_original_filename):
         dest_file_name = file_name
     else:
         dest_file_name = details.group(cfg.rcap_file)
 
-    if (cfg.separate_extensions):
+    if (cfg.separate_extensions or (not cfg.keep_original_filename)):
         dest_file_ext = details.group(cfg.rcap_ext)
+        dest_file_name = f'{dest_file_name}.{dest_file_ext}'
     else:
         dest_file_ext = None
 
-    full_file_path_out = os.path.join(output_path, dest_subfolder)
-
-    if (dest_file_ext):
+    if (cfg.separate_extensions): # dest_file_ext
         full_file_path_out = os.path.join(full_file_path_out, dest_file_ext)
-
-        dest_file_name = f'{dest_file_name}.{dest_file_ext}'
 
     full_file_path_out = os.path.join(full_file_path_out, dest_file_name)
     
     full_file_path_in = os.path.join(input_path, file_name)
 
-    print(f'Moving file from\n"{full_file_path_in}"\nto:\n"{full_file_path_out}"')
-
     if (cfg.ensure_output_path):
+        print('Ensuring output path...')
         ensure_path(full_file_path_out)
     
     if (cfg.mode == 'copy'):
+        print(f'Copying file from\n"{full_file_path_in}"\nto:\n"{full_file_path_out}"')
         shutil.copyfile(full_file_path_in, full_file_path_out)
     elif (cfg.mode == 'move'):
+        print(f'Moving file from\n"{full_file_path_in}"\nto:\n"{full_file_path_out}"')
         shutil.move(full_file_path_in, full_file_path_out)
     else:
         assert(False, f"Invalid transfer mode detected: {cfg.mode}")
@@ -103,6 +103,7 @@ def main(argv):
     to_subfolder(cfg)
 
 if __name__ == "__main__":
-    #main(['-i', 'E:\\Downloads\\New folder', '-o', 'E:\\Downloads\\New folder (2)'])
+    # Uncomment to run example:
+    #main(['-i', "example/C", '-o', "example/D", '--shorten-filename', '--mode', 'copy'])
     
     main(sys.argv[1:])
