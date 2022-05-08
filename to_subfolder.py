@@ -58,7 +58,7 @@ def process_file(cfg, regexp, input_path, file_name, output_path):
         print(f'Moving file from\n"{full_file_path_in}"\nto:\n"{full_file_path_out}"')
         shutil.move(full_file_path_in, full_file_path_out)
     else:
-        assert(False, f"Invalid transfer mode detected: {cfg.mode}")
+        assert False, f"Invalid transfer mode detected: {cfg.mode}"
 
     print('File moved.\n')
 
