@@ -77,7 +77,7 @@ def main(argv):
                                                                                     'e.g. a file named "A - B.txt" could be moved from folder "C" to folder "D/A" as "B.txt" --\n'
                                                                                     'so your final path would be something like: "D/A/B.txt"\n')
 
-    parser.add_argument('-r', "--regex", dest='regular_expression', default=r'(.*?)\s-\s(.+)\.(.+)',
+    parser.add_argument('-r', "--regex", dest='regular_expression', default=r'(\[[^\]]+\])?(.*?)\s[-|–]\s(.+)\.(.+)',
                             help='The regular expression used to identify a subfolder name\n'
                                 'By default, this is configured to look for files similar to "Subfolder Name - File Name.FILEEXTENSION".\n'
                                 'To change which capture maps to what element, use:\n'
@@ -88,9 +88,9 @@ def main(argv):
     parser.add_argument('-i', "--input", dest='input_path', required=True)
     parser.add_argument('-o', "--output", dest='output_path', required=True)
 
-    parser.add_argument('-folderc', "--folder-capture", dest='rcap_folder', default=1, type=int)
-    parser.add_argument('-filec', "--file-capture", dest='rcap_file', default=2, type=int)
-    parser.add_argument('-extc', "--ext-capture", dest='rcap_ext', default=3, type=int)
+    parser.add_argument('-folderc', "--folder-capture", dest='rcap_folder', default=2, type=int)
+    parser.add_argument('-filec', "--file-capture", dest='rcap_file', default=3, type=int)
+    parser.add_argument('-extc', "--ext-capture", dest='rcap_ext', default=4, type=int)
 
     parser.add_argument('-se', "--separate-ext", dest='separate_extensions', default=False, action='store_true')
     parser.add_argument('-sf', "--shorten-filename", dest='keep_original_filename', default=True, action='store_false')
