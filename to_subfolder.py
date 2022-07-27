@@ -77,7 +77,7 @@ def main(argv):
                                                                                     'e.g. a file named "A - B.txt" could be moved from folder "C" to folder "D/A" as "B.txt" --\n'
                                                                                     'so your final path would be something like: "D/A/B.txt"\n')
 
-    parser.add_argument('-r', "--regex", dest='regular_expression', default=r'([\[|_][^\]_]+[\]|_])?(.*?)\s[-|–]\s(.+)\.(.+)',
+    parser.add_argument('-r', "--regex", dest='regular_expression', default=r'([\[|_][^\]_]+[\]|_]\s*)?(.*?)\s[-|–]\s(.+)\.(.+)',
                             help='The regular expression used to identify a subfolder name\n'
                                 'By default, this is configured to look for files similar to "Subfolder Name - File Name.FILEEXTENSION".\n'
                                 'To change which capture maps to what element, use:\n'
